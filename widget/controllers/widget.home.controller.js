@@ -25,6 +25,16 @@
                     }
                 });
 
+                audioPlayer.settings.get(function (err, data) {
+                    console.log('Got player settings first time-----------------------', err, data);
+                    if (data) {
+                        WidgetHome.settings = data;
+                        if (!$scope.$$phase) {
+                            $scope.$digest();
+                        }
+                    }
+                });
+
                 /**
                  * audioPlayer.onEvent callback calls when audioPlayer event fires.
                  */
@@ -106,9 +116,9 @@
                 WidgetHome.shufflePlaylist = function () {
                     console.log('WidgetHome settings in shuffle---------------------', WidgetHome.settings);
                     if (WidgetHome.settings) {
-                        WidgetHome.settings.shufflePlaylist = WidgetHome.settings.shufflePlaylist ? false : true;
+                        WidgetHome.settings.shufflePlaylist = !WidgetHome.settings.shufflePlaylist;
+                        audioPlayer.settings.set(WidgetHome.settings);
                     }
-                    audioPlayer.settings.set(WidgetHome.settings);
                 };
                 WidgetHome.changeVolume = function (volume) {
                     console.log('Volume----------------------', volume);
@@ -128,9 +138,9 @@
                 WidgetHome.loopPlaylist = function () {
                     console.log('WidgetHome settings in Loop Playlist---------------------', WidgetHome.settings);
                     if (WidgetHome.settings) {
-                        WidgetHome.settings.loopPlaylist = WidgetHome.settings.loopPlaylist ? false : true;
+                        WidgetHome.settings.loopPlaylist = !WidgetHome.settings.loopPlaylist;
+                        audioPlayer.settings.set(WidgetHome.settings);
                     }
-                    audioPlayer.settings.set(WidgetHome.settings);
                 };
                 WidgetHome.addToPlaylist = function () {
                     console.log('AddToPlaylist called-------------------------------');
