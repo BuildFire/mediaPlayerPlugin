@@ -49,7 +49,7 @@
     'height': '110%',
     'width': '110%',
     'z-index': '0'}"></div>
-        <div class="media-center-plugin">
+        <div class="media-center-plugin" ng-if="!openPlaylist">
             <div class="media-header-link">
                 <a class="whiteTheme" ng-click="WidgetHome.getFromPlaylist()">Open Playlist</a>
             </div>
@@ -115,12 +115,12 @@
         </div>
 
         <!-- Playlist Overlay -->
-        <div ng-if="WidgetHome.openPlaylist" class="overlay"
-             style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8);">
+        <div ng-if="openPlaylist" class="overlay"
+             style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,1.0);">
             <div class="overlay-content" style="postiion:absolute; top:0; left:0; height:100%; width: 100%; overflow:auto;">
                 <div class="media-player-list-layout layout3">
                     <div class="list-layout has-btns">
-                        <div class="list-item overflow-hidden"
+                        <div class="list-item overflow-hidden" style="border-bottom: none !important;"
                              ng-swipe-right="WidgetHome.addEvents($event, $index, false,track)"
                              ng-swipe-left="WidgetHome.addEvents($event, $index, true,track)"
                              ng-repeat="track in WidgetHome.playList">
@@ -129,10 +129,10 @@
                                     <img ng-if="track.image" ng-src="{{track.image | cropImage : 55 :22}}">
                                 </div>
                                 <div class="list-item-copy text-left padding-left-ten padding-right-ten">
-                                    <p class="margin-bottom-zero ellipsis margin-top-twenty text-primary">{{track.title}}</p>
+                                    <p class="margin-bottom-zero ellipsis margin-top-twenty">{{track.title}}</p>
                                 </div>
                                 <div class="btns text-center">
-                                    <a ng-class="track.playing ? 'icon-pause-circle primaryTheme' : 'icon-play-circle'" class="icon " ng-click="WidgetHome.playlistPlayPause(track)"></a>
+                                    <a ng-class="track.playing ? 'icon-pause-circle' : 'icon-play-circle'" class="icon primaryTheme" ng-click="WidgetHome.playlistPlayPause(track)"></a>
                                 </div>
                                 <div class="remove-btn text-center dangerBackgroundTheme" style="background:red;" ng-click="WidgetHome.removeTrackFromPlayList($index)">
                                     <span class="whiteTheme">Remove</span>
@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <div class="margin-top-ten margin-bottom-ten">
-                    <a ng-click="WidgetHome.closePlayListOverlay()" class="whiteTheme">Done</a>
+                    <a ng-click="WidgetHome.closePlayListOverlay()">Done</a>
                 </div>
             </div>
         </div>
@@ -163,7 +163,7 @@
                     <hr class="none">
                     <div class="media-player-info margin-top-twenty padding-left-ten padding-right-ten">
                         <h4 class="margin-zero ellipsis whiteTheme">{{WidgetHome.currentTrack.title}}</h4>
-                        <p class="margin-zero ellipsis whiteTheme">{{WidgetHome.currentTrack.user.username}}</p>
+                        <p class="margin-zero ellipsis whiteTheme">{{WidgetHome.currentTrack.artist || WidgetHome.currentTrack.album}}</p>
                     </div>
                     <hr class="none">
                     <div class="more-info-list padded">
@@ -183,7 +183,7 @@
                             <a>Share</a>
                         </div>-->
                         <div class="text-center item">
-                            <a ng-click="WidgetHome.closeMoreInfoOverlay()" class="whiteTheme">Cancel</a>
+                            <a ng-click="WidgetHome.closeMoreInfoOverlay()" class="whiteTheme">Done</a>
                         </div>
                     </div>
                 </div>
