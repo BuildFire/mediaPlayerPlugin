@@ -3,6 +3,7 @@
   "pluginName": "Audio Media Player",
   "pluginDescription": "Couple the Media Player with your Media Center to let your users create playlists to have an amasing, modern listening experience.",
   "supportEmail": "support@buildfire.com",
+  "supportSite":"http://support.appdocumentation.com/knowledge-base/audio-media-player-plugin-tutorial/",
   "pluginIcon": "icon.png",
   "control": {
     "content": {
