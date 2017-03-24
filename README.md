@@ -2,4 +2,4 @@
 
 
 
-Couple the Media Player with your Media Center to let your users create playlists to have an amasing, modern listening experience.
+Couple the Media Player with your Media Center to let your users create playlists to have an amazing, modern listening experience.
