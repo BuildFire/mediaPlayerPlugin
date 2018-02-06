@@ -120,7 +120,7 @@
 }
 .holder .bottom .extra-links a.view-type{
 	top:-95px;
-	
+
 	top:-45px;
 	left:inherit;
 	right:10px;
@@ -178,7 +178,7 @@
 .holder.now-playing .media-holder .media-inner,
 .more-info .media-holder .media-inner{
 	max-width:240px;
-	max-height:240px;	
+	max-height:240px;
 	display:table-cell;
 	vertical-align:middle;
 }
@@ -506,7 +506,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	position:absolute;
 	width:30px;
 	height:26px;
-	color:#fff;	
+	color:#fff;
 	font-size:30px;
 	line-height:24px;
 	top:50%;
@@ -519,4 +519,28 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	width:24px;
 	margin-left:-12px;
 	margin-top:-12px;
+}
+
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
 }
