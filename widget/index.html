@@ -81,6 +81,7 @@
                                                     min="0.0"
                                                     max="{{WidgetHome.duration || 163.94449}}"
                                                     ng-model="WidgetHome.currentTime"
+                                                    ng-disabled="WidgetHome.isRangeDisabled"
                                                     ng-change="WidgetHome.changeTime(WidgetHome.currentTime)"
                                                     style="height:30px; border-radius:4px;background-color: transparent !important;"/>
                     </div>

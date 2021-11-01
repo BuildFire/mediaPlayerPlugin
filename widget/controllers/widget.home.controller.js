@@ -10,21 +10,34 @@
                 var WidgetHome = this;
                 WidgetHome.currentTime = 0.0;
                 WidgetHome.volume = 1;
+                WidgetHome.isRangeDisabled = true;
                 $rootScope.openPlaylist = false;
-
+                var audioPlayer = Buildfire.services.media.audioPlayer;
+                WidgetHome.playList = [];
+                audioPlayer.getPlaylist((err,data) =>{
+                    if(data && data.tracks) WidgetHome.playList = data.tracks;
+                    audioPlayer.getCurrentTrack(function (track, err) {
+                            if (track) {
+                                if(WidgetHome.playList.findIndex(i => i.url === track) >= 0 ){
+                                    WidgetHome.currentTrack = track;
+                                    WidgetHome.isRangeDisabled = false;
+                                    console.log("Current track set");
+                                    $scope.$digest();
+                                }
+                                else{
+                                    console.log("current track null");
+                                    WidgetHome.currentTrack = null;
+                                    $scope.$digest();
+                                } 
+                            }
+                            else WidgetHome.currentTrack = null;
+                            console.log('audioPlayer.getCurrentTrack method called--------------------------------', track, err);
+                    });
+                })
 
                 /**
                  * audioPlayer is Buildfire.services.media.audioPlayer.
                  */
-                var audioPlayer = Buildfire.services.media.audioPlayer;
-
-                audioPlayer.getCurrentTrack(function (track, err) {
-                    console.log('audioPlayer.getCurrentTrack method called--------------------------------', track, err);
-                    if (track) {
-                        WidgetHome.currentTrack = track;
-                        $scope.$digest();
-                    }
-                });
 
                 audioPlayer.settings.get(function (err, data) {
                     console.log('Got player settings first time-----------------------', err, data);
@@ -46,28 +59,7 @@
                             if (WidgetHome.settings && WidgetHome.settings.isPlayingCurrentTrack && WidgetHome.currentTrack) {
                                 WidgetHome.playing = true;
                             } else {
-                                audioPlayer.getCurrentTrack(function (track, err) {
-                                    console.log('audioPlayer.getCurrentTrack method called- from timeupdate event-------------------------------', track, err);
-                                    if (track) {
-                                        audioPlayer.settings.get(function (err, data) {
-                                            console.log('Got settings - from --timeupdate event-------------------', err, data);
-                                            if (data) {
-                                                WidgetHome.settings = data;
-                                                if (data.isPlayingCurrentTrack) {
-                                                    WidgetHome.playing = true;
-                                                }
-                                            }
-                                            /*else{
-                                             var newSettings=new AudioSettings({autoPlayNext:false,loopPlaylist:false,autoJumpToLastPosition:false,shufflePlaylist:false,isPlayingCurrentTrack:true});
-                                             WidgetHome.settings=newSettings;
-                                             audioPlayer.settings.set(newSettings);
-                                             WidgetHome.playing = true;
-                                             }*/
-                                        });
-                                        WidgetHome.currentTrack = track;
-                                        $scope.$digest();
-                                    }
-                                });
+
                             }
                             WidgetHome.currentTime = e.data.currentTime;
                             WidgetHome.duration = e.data.duration;
@@ -98,11 +90,13 @@
                  * Player related method and variables
                  */
                 WidgetHome.playTrack = function () {
+                    if(WidgetHome.currentTrack == null) return;
                     if (WidgetHome.settings) {
                         WidgetHome.settings.isPlayingCurrentTrack = true;
                         audioPlayer.settings.set(WidgetHome.settings);
                     }
                     WidgetHome.playing = true;
+                    WidgetHome.isRangeDisabled = false;
                     WidgetHome.currentTrack.isPlaying = true;
                     if (WidgetHome.paused) {
                         audioPlayer.play();
@@ -111,6 +105,7 @@
                     }
                 };
                 WidgetHome.playlistPlay = function (track, index) {
+                    WidgetHome.isRangeDisabled = false;
                     if (WidgetHome.settings) {
                         WidgetHome.settings.isPlayingCurrentTrack = true;
                         audioPlayer.settings.set(WidgetHome.settings);
@@ -206,32 +201,53 @@
                     }
                 };
                 WidgetHome.addToPlaylist = function () {
-                    console.log('AddToPlaylist called-------------------------------');
                     audioPlayer.addToPlaylist(WidgetHome.currentTrack);
                 };
                 WidgetHome.removeFromPlaylist = function (track) {
+
                     Modals.removeTrackModal().then(function (data) {
                         if (WidgetHome.playList) {
                             var trackIndex = 0;
                             WidgetHome.playList.some(function (val, index) {
+                                console.log(WidgetHome.playList);
                                 if ((val.url == track.url) && (trackIndex == 0)) {
                                     audioPlayer.removeFromPlaylist(index);
                                     //trackIndex++;
                                 }
                                 return (val.url == track.url);
-
+                                
                             });
                             console.log('indexes------------track Index----------------------track==========', trackIndex);
+                        }
+                        if(WidgetHome.currentTrack && track.url == WidgetHome.currentTrack.url){
+                            WidgetHome.currentTrack = null;
+                            WidgetHome.currentTime = 0.0;
+                            WidgetHome.playing = false;
+                            WidgetHome.isRangeDisabled = true;
+                            WidgetHome.playList[index].playing = false;
+                            WidgetHome.settings.isPlayingCurrentTrack = false;
+                            WidgetHome.setSettings(WidgetHome.settings);
                         }
                         console.log('Remove caleedddddddddddddddddddd----------------------------------------', data);
                     }, function (err) {
                         console.log('Error--------------While removing-------------', err);
                     });
+
                     console.log('removeFromPlaylist called-------------------------------');
                 };
                 WidgetHome.removeTrackFromPlayList = function (index) {
+                    
                     Modals.removeTrackModal().then(function (data) {
                         audioPlayer.removeFromPlaylist(index);
+                        if(WidgetHome.playList && WidgetHome.currentTrack && WidgetHome.playList[index].url == WidgetHome.currentTrack.url ){
+                            WidgetHome.currentTrack = null;
+                            WidgetHome.currentTime = 0.0;
+                            WidgetHome.settings.isPlayingCurrentTrack = false;
+                            WidgetHome.playing = false;
+                            WidgetHome.playList[index].playing = false;
+                            WidgetHome.isRangeDisabled = true;
+                            WidgetHome.setSettings(WidgetHome.settings);
+                        }
                         console.log('Remove caleedddddddddddddddddddd----------------------------------------', data);
                     }, function (err) {
                         console.log('Error--------------While removing-------------', err);
@@ -250,6 +266,7 @@
                                         trackIndex++;
                                         console.log('Url MAtched--------------------------------- --------------');
                                         track.playing = true;
+                                        WidgetHome.isRangeDisabled = false;
                                         return true;
                                     }
                                 });
