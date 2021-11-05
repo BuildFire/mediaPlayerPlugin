@@ -224,7 +224,6 @@
 .holder.now-playing .media-player-btns .icon.icon-main{
 	font-size:58px;
 	position:relative;
-	top:6px;
 }
 
 .ecommerce-plugin .list-layout.has-cart .list-item,
@@ -480,7 +479,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 		font-size:52px;
 	}
 	.holder.now-playing .media-player-btns .icon.icon-sm{
-		top:-5px;
+		top:0px;
 	}
 }
 

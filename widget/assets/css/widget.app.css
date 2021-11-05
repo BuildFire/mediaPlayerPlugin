@@ -1,4 +1,19 @@
 /* Plugin CSS */
+
+.media-button-container{
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+}
+.media-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	width: 100% !important;
+}
+
 .media-center-plugin.layout2 .people-banner .people-bg{
 	background:rgba(0,0,0,0.8);
 }
@@ -285,7 +300,6 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .holder.now-playing .media-player-btns .icon.icon-sm{
 	font-size:22px;
 	position:relative;
-	top:-7px;
 	color:#999;
 }
 .holder.now-playing .media-player-btns .icon{
@@ -297,7 +311,6 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .holder.now-playing .media-player-btns .icon.icon-main{
 	font-size:58px;
 	position:relative;
-	top:6px;
 }
 
 /* Media Player Playlist Overlay */
@@ -358,7 +371,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 		font-size:52px;
 	}
 	.holder.now-playing .media-player-btns .icon.icon-sm{
-		top:-5px;
+		top:0;
 	}
 }
 
