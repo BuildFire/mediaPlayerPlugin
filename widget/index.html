@@ -81,6 +81,7 @@
                                                     min="0.0"
                                                     max="{{WidgetHome.duration || 163.94449}}"
                                                     ng-model="WidgetHome.currentTime"
+                                                    ng-disabled="WidgetHome.isRangeDisabled"
                                                     ng-change="WidgetHome.changeTime(WidgetHome.currentTime)"
                                                     style="height:30px; border-radius:4px;background-color: transparent !important;"/>
                     </div>
@@ -114,19 +115,29 @@
                 <span class="icon icon-ellipsis icon-sm whiteTheme" ng-click="WidgetHome.openMoreInfoOverlay()"></span>
                 <span class="icon icon-cog icon-sm whiteTheme" ng-click="WidgetHome.getSettings()"></span>
             </div>
-            <div class="media-player-btns margin-top-ten">
-                <span ng-class="(WidgetHome.settings && WidgetHome.settings.shufflePlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
-                      class="icon icon-shuffle icon-sm " ng-click="WidgetHome.shufflePlaylist()"></span>
-                <span class="icon icon-backward-circle whiteTheme" ng-click="WidgetHome.backward()"></span>
-            <span ng-if="!WidgetHome.playing" class="icon icon-play-circle icon-main whiteTheme"
-                  ng-click="WidgetHome.playTrack()"></span>
-            <span ng-if="WidgetHome.playing" class="icon icon-pause-circle icon-main whiteTheme"
-                  ng-click="WidgetHome.pauseTrack()"></span>
-                <span class="icon icon-forward-circle whiteTheme" ng-click="WidgetHome.forward()"></span>
-                <span ng-class="(WidgetHome.settings && WidgetHome.settings.loopPlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
-                      class="icon icon-repeat icon-sm" ng-click="WidgetHome.loopPlaylist()"></span>
-                <span class="icon icon-repeat-one icon-sm primaryTheme hidden whiteTheme"></span>
-                <span class="icon icon-repeat icon-sm primaryTheme hidden whiteTheme"></span>
+            <div class="media-player-btns margin-top-ten media-container">
+                <div class = "media-button-container">
+                    <span ng-class="(WidgetHome.settings && WidgetHome.settings.shufflePlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
+                          class="icon icon-shuffle icon-sm " ng-click="WidgetHome.shufflePlaylist()"></span>
+                </div>
+                <div class = "media-button-container">
+                    <span class="icon icon-backward-circle whiteTheme" ng-click="WidgetHome.backward()"></span>
+                </div>
+                <div class = "media-button-container">
+                    <span ng-if="!WidgetHome.playing" class="icon icon-play-circle icon-main whiteTheme"
+                    ng-click="WidgetHome.playTrack()"></span>
+                    <span ng-if="WidgetHome.playing" class="icon icon-pause-circle icon-main whiteTheme"
+                      ng-click="WidgetHome.pauseTrack()"></span>
+                </div>
+                <div class = "media-button-container">
+                    <span class="icon icon-forward-circle whiteTheme" ng-click="WidgetHome.forward()"></span>
+                </div>             
+                <div class = "media-button-container">
+                    <span ng-class="(WidgetHome.settings && WidgetHome.settings.loopPlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
+                          class="icon icon-repeat icon-sm" ng-click="WidgetHome.loopPlaylist()"></span>
+                    <span class="icon icon-repeat-one icon-sm primaryTheme hidden whiteTheme"></span>
+                    <span class="icon icon-repeat icon-sm primaryTheme hidden whiteTheme"></span>
+                </div>   
             </div>
         </div>
 
