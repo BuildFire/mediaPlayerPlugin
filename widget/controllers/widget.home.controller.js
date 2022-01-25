@@ -18,7 +18,7 @@
                     if(data && data.tracks) WidgetHome.playList = data.tracks;
                     audioPlayer.getCurrentTrack(function (track, err) {
                             if (track) {
-                                let trackFromPlaylist = WidgetHome.playList.findIndex(i => i.url === track);
+                                let trackFromPlaylist = WidgetHome.playList.find(i => i.url === track);
                                 if(trackFromPlaylist) {
                                     WidgetHome.currentTrack = trackFromPlaylist;
                                     WidgetHome.isRangeDisabled = false;
