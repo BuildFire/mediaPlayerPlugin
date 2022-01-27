@@ -18,21 +18,20 @@
                     if(data && data.tracks) WidgetHome.playList = data.tracks;
                     audioPlayer.getCurrentTrack(function (track, err) {
                             if (track) {
-                                if(WidgetHome.playList.findIndex(i => i.url === track) >= 0 ){
-                                    WidgetHome.currentTrack = track;
+                                let trackFromPlaylist = WidgetHome.playList.find(i => i.url === track);
+                                if(trackFromPlaylist) {
+                                    WidgetHome.currentTrack = trackFromPlaylist;
                                     WidgetHome.isRangeDisabled = false;
                                     console.log("Current track set");
                                     $scope.$digest();
-                                }
-                                else{
-                                    console.log("current track null");
-                                    WidgetHome.currentTrack = null;
+                                } else {
+                                    WidgetHome.currentTrack = track;
                                     $scope.$digest();
-                                } 
+                                }
                             }
-                            else WidgetHome.currentTrack = null;
                             console.log('audioPlayer.getCurrentTrack method called--------------------------------', track, err);
                     });
+            
                 })
 
                 /**
