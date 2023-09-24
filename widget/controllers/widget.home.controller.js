@@ -12,6 +12,33 @@
                 WidgetHome.volume = 1;
                 WidgetHome.isRangeDisabled = true;
                 $rootScope.openPlaylist = false;
+                const playbackSpeedOptions = [
+                    {
+                        text: '<div class="bodyTextTheme">0.5x</div>',
+                        displayText: '0.5x',
+                        value: 0.5,
+                        default: false
+                    },
+                    {
+                        text: '<div class="bodyTextTheme">1.0x</div>',
+                        displayText: '1.0x',
+                        value: 1,
+                        default: true
+                    },
+                    {
+                        text: '<div class="bodyTextTheme">1.5x</div>',
+                        displayText: '1.5x',
+                        value: 1.5,
+                        default: false
+                    },
+                    {
+                        text: '<div class="bodyTextTheme">2.0x</div>',
+                        displayText: '2.0x',
+                        value: 2,
+                        default: false
+                    },
+                ];
+
                 var audioPlayer = Buildfire.services.media.audioPlayer;
                 WidgetHome.playList = [];
                 audioPlayer.getPlaylist((err,data) =>{
@@ -41,6 +68,9 @@
                 audioPlayer.settings.get(function (err, data) {
                     console.log('Got player settings first time-----------------------', err, data);
                     if (data) {
+                        // todo : until Mahmoud done 
+                        data.playbackRate = 1;
+                        // todo End -----------------
                         WidgetHome.settings = data;
                         if (!$scope.$$phase) {
                             $scope.$digest();
@@ -316,6 +346,35 @@
                     WidgetHome.openMoreInfo = false;
                 };
 
+                //! --------------------------- Playback options --------------------------------------
+                WidgetHome.openPlaybackDrawer = function () {
+                    buildfire.components.drawer.open(
+                        {
+                            content: '<b>Playback Speed</b>',
+                            enableFilter: false,
+                            listItems: playbackSpeedOptions,
+                        },
+                        (err, result) => {
+                            if (err) return console.error(err);
+                            setPlaybackSpeed(result.value);
+                            buildfire.components.drawer.closeDrawer();
+                        }
+                    );
+                };
+
+                const setPlaybackSpeed = function (value) {
+                    if (WidgetHome.settings && value) {
+                        WidgetHome.settings.playbackRate = value;
+                        audioPlayer.settings.set(WidgetHome.settings);
+                        // todo : uncomment this line after Mahmoud work done
+                        // audioPlayer.setPlaybackRate(value);
+                        $scope.$digest();
+                    }
+                };
+                
+                
+                //! --------------------------- End : Playback options --------------------------------------
+
                 /**
                  * Track Smaple
                  * @param title
@@ -342,6 +401,7 @@
                  * @param loop
                  * @param autoJumpToLastPosition
                  * @param shufflePlaylist
+                 * @param playbackRate
                  * @constructor
                  */
                 function AudioSettings(settings) {
@@ -350,6 +410,7 @@
                     this.autoJumpToLastPosition = settings.autoJumpToLastPosition; //If a track has [lastPosition] use it to start playing the audio from there
                     this.shufflePlaylist = settings.shufflePlaylist;// shuffle the playlist
                     this.isPlayingCurrentTrack = settings.isPlayingCurrentTrack;// Tells whether current is playing or not
+                    this.playbackRate = settings.playbackRate;// Track playback speed rate
                 }
 
 

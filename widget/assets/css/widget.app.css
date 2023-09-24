@@ -291,10 +291,20 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .holder.now-playing .media-header-link a{
 	color:#fff;
 }
+.holder.now-playing .media-player-action-btns {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .holder.now-playing .media-player-action-btns .icon{
 	font-size:25px;
 }
-.holder.now-playing .media-player-action-btns .icon + .icon{
+.holder.now-playing .media-player-action-btns .playback-speed{
+	margin-left:60px;
+}
+.holder.now-playing .media-player-action-btns .icon + .icon,
+.holder.now-playing .media-player-action-btns .playback-speed + .icon
+{
 	margin-left:60px;
 }
 .holder.now-playing .media-player-btns .icon.icon-sm{

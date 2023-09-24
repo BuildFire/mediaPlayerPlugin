@@ -17,6 +17,7 @@
     <script src="../../../scripts/angular/angular-animate.min.js"></script>
     <script src="../../../scripts/angular/ui-bootstrap.min.js"></script>
     <script src="../../../scripts/angular/angular-touch.js"></script>
+    <script src="../../../scripts/buildfire/components/drawer/drawer.js"></script>
     <script src="app.js"></script>
     <script src="controllers/widget.home.controller.js"></script>
     <!--app js-->
@@ -112,8 +113,9 @@
             </div>
             <div class="media-player-action-btns">
                 <!--<span class="icon icon-volume-high icon-sm" ng-click="WidgetHome.showVolume=!WidgetHome.showVolume"></span>-->
-                <span class="icon icon-ellipsis icon-sm whiteTheme" ng-click="WidgetHome.openMoreInfoOverlay()"></span>
                 <span class="icon icon-cog icon-sm whiteTheme" ng-click="WidgetHome.getSettings()"></span>
+                <span class="playback-speed whiteTheme" ng-click="WidgetHome.openPlaybackDrawer()">{{WidgetHome.settings.playbackRate | number:'1'}}x</span>
+                <span class="icon icon-ellipsis icon-sm whiteTheme" ng-click="WidgetHome.openMoreInfoOverlay()"></span>
             </div>
             <div class="media-player-btns margin-top-ten media-container">
                 <div class = "media-button-container">
