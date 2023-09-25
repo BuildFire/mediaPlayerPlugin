@@ -99,6 +99,12 @@
                 else
                     buildfire.navigation._goBackOne();
             }
+        }])
+        .run(['$rootScope',function ($rootScope) {
+            buildfire.language.get({ stringKey: 'general.PlaybackSpeedTitle' }, (err, result) => {
+                if (err) return console.error('Error while retrieving string value', err);
+                $rootScope.PlaybackSpeedTitle = result;
+            });
         }]);
 })
 (window.angular, window.buildfire);

@@ -351,8 +351,9 @@
                 WidgetHome.openPlaybackDrawer = function () {
                     buildfire.components.drawer.open(
                         {
-                            content: '<b>Playback Speed</b>',
+                            content: `<b class="ellipsis" style="display:block;">${$rootScope.PlaybackSpeedTitle}</b>`,
                             enableFilter: false,
+                            isHTML:true,
                             listItems: playbackSpeedOptions,
                         },
                         (err, result) => {
