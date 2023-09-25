@@ -92,6 +92,7 @@
                             }
                             WidgetHome.currentTime = e.data.currentTime;
                             WidgetHome.duration = e.data.duration;
+                            WidgetHome.progressBarStyle(e.data.currentTime);
                             break;
                         case 'audioEnded':
                             WidgetHome.playing = false;
@@ -446,5 +447,23 @@
                      }*/
                 };
 
+                /**
+                 * progress bar style
+                 * @param {Number} value 
+                 */
+                WidgetHome.progressBarStyle = function (value) {
+                    const percentage = (value / WidgetHome.duration) * 100;
+                    if (percentage) {
+                        document.documentElement.style.setProperty(
+                            '--played-tracker-percentage',
+                            `${percentage}%`
+                        );
+                        document.documentElement.style.setProperty(
+                            '--isPlaying',
+                            value < 0.5 ? 0 : 1
+                        );
+                        console.log(document.documentElement.style.getPropertyValue('--value'));
+                    }
+                };
             }]);
 })(window.angular, window);

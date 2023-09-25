@@ -52,9 +52,6 @@
     'width': '110%',
     'z-index': '0'}"></div>
         <div class="media-center-plugin" ng-if="!(WidgetHome.openMoreInfo || WidgetHome.openSettings)">
-            <div class="media-header-link">
-                <a class="whiteTheme" ng-click="WidgetHome.getFromPlaylist()">Open Playlist</a>
-            </div>
             <div class="media-holder margin-top-fifteen">
                 <div class="media-inner text-center">
                     <img ng-if="!WidgetHome.currentTrack.image"
@@ -111,35 +108,62 @@
             <div class="text-center margin-top-fifteen">
                 <span class="icon icon-dots whiteTheme"></span>
             </div>
+            <div class="media-player-btns media-container">
+                <div class = "media-button-container" ng-click="WidgetHome.shufflePlaylist()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <g opacity="0.9" clip-path="url(#clip0_1431_2874)">
+                                <path d="M10.59 9.17L5.41 4L4 5.41L9.17 10.58L10.59 9.17ZM14.5 4L16.54 6.04L4 18.59L5.41 20L17.96 7.46L20 9.5V4H14.5ZM14.83 13.41L13.42 14.82L16.55 17.95L14.5 20H20V14.5L17.96 16.54L14.83 13.41Z" 
+                                ng-class="(WidgetHome.settings && WidgetHome.settings.shufflePlaylist) ? 'active' : 'not-active'"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_1431_2874">
+                                    <rect width="24" height="24" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                </div>
+                <div class = "media-button-container">
+                    <span class="icon whiteTheme" ng-click="WidgetHome.backward()">
+                        <img  src="assets/icons/ic_fast_rewind.svg" alt="pause" >
+                    </span>
+                </div>
+                <div class = "media-button-container">
+                    <button class="btn btn-icon btn-lg btn-primary play-pause-button">
+                        <div ng-if="!WidgetHome.playing"  ng-click="WidgetHome.playTrack()">
+                            <img  src="assets/icons/ic_play2.svg" alt="play">
+                        </div>
+                        <div ng-if="WidgetHome.playing"  ng-click="WidgetHome.pauseTrack()">
+                            <img  src="assets/icons/ic_pause_2.svg" alt="pause" >
+                        </div>
+                    </button>
+                </div>
+                <div class = "media-button-container">
+                    <span class="icon whiteTheme" ng-click="WidgetHome.forward()">
+                        <img  src="assets/icons/ic_fast_forward.svg" alt="pause" >
+                    </span>
+                </div>             
+                <div class = "media-button-container" ng-click="WidgetHome.loopPlaylist()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <g opacity="0.9" clip-path="url(#clip0_1431_2881)">
+                                <path d="M7 7H17V10L21 6L17 2V5H5V11H7V7ZM17 17H7V14L3 18L7 22V19H19V13H17V17Z" 
+                                ng-class="(WidgetHome.settings && WidgetHome.settings.loopPlaylist) ? 'active' : 'not-active'">
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_1431_2881">
+                                    <rect width="24" height="24" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                </div>   
+            </div>
             <div class="media-player-action-btns">
                 <!--<span class="icon icon-volume-high icon-sm" ng-click="WidgetHome.showVolume=!WidgetHome.showVolume"></span>-->
-                <span class="icon icon-cog icon-sm whiteTheme" ng-click="WidgetHome.getSettings()"></span>
                 <span class="playback-speed whiteTheme" ng-click="WidgetHome.openPlaybackDrawer()">{{WidgetHome.settings.playbackRate | number:'1'}}x</span>
+                <span ng-if="!globalPlaylist" class="icon" ng-click="WidgetHome.getFromPlaylist()"">
+                    <img class="playList-icon" src="assets/icons/ic_playlist.svg" alt="playlist">
+                </span>
                 <span class="icon icon-ellipsis icon-sm whiteTheme" ng-click="WidgetHome.openMoreInfoOverlay()"></span>
-            </div>
-            <div class="media-player-btns margin-top-ten media-container">
-                <div class = "media-button-container">
-                    <span ng-class="(WidgetHome.settings && WidgetHome.settings.shufflePlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
-                          class="icon icon-shuffle icon-sm " ng-click="WidgetHome.shufflePlaylist()"></span>
-                </div>
-                <div class = "media-button-container">
-                    <span class="icon icon-backward-circle whiteTheme" ng-click="WidgetHome.backward()"></span>
-                </div>
-                <div class = "media-button-container">
-                    <span ng-if="!WidgetHome.playing" class="icon icon-play-circle icon-main whiteTheme"
-                    ng-click="WidgetHome.playTrack()"></span>
-                    <span ng-if="WidgetHome.playing" class="icon icon-pause-circle icon-main whiteTheme"
-                      ng-click="WidgetHome.pauseTrack()"></span>
-                </div>
-                <div class = "media-button-container">
-                    <span class="icon icon-forward-circle whiteTheme" ng-click="WidgetHome.forward()"></span>
-                </div>             
-                <div class = "media-button-container">
-                    <span ng-class="(WidgetHome.settings && WidgetHome.settings.loopPlaylist) ? 'primaryTheme bold' : 'whiteTheme'"
-                          class="icon icon-repeat icon-sm" ng-click="WidgetHome.loopPlaylist()"></span>
-                    <span class="icon icon-repeat-one icon-sm primaryTheme hidden whiteTheme"></span>
-                    <span class="icon icon-repeat icon-sm primaryTheme hidden whiteTheme"></span>
-                </div>   
+                <span class="icon icon-cog icon-sm whiteTheme" ng-click="WidgetHome.getSettings()"></span>
             </div>
         </div>
 
