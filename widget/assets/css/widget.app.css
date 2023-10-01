@@ -1,6 +1,5 @@
 :root {
     --played-tracker-percentage: 0%;
-	--isPlaying: 0;
 }
 
 /* Plugin CSS */
@@ -403,6 +402,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 		margin-top:-232px;
 	}
 	.holder.now-playing .media-holder,
+	.holder.now-playing .media-holder .media-inner,
 	.holder.now-playing .media-holder .media-inner img{
 		max-height:200px;
 		max-width:200px;
@@ -486,8 +486,8 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	border-radius: 12px;
 	animate: 0.2s;
 	background: -webkit-gradient(linear, left top, right top, from(var(--bf-theme-primary)), color-stop(var(--bf-theme-primary)), color-stop(#fff), to(white));
-    background: -o-linear-gradient(left, var(--bf-theme-primary) 0%, var(--bf-theme-primary) calc(var(--played-tracker-percentage) - 2%), #fff calc(var(--played-tracker-percentage) - 2%), white 100%);
-    background: linear-gradient(to right, var(--bf-theme-primary) 0%, var(--bf-theme-primary) calc(var(--played-tracker-percentage) - 2%), #fff calc(var(--played-tracker-percentage) - 2%), white 100%);
+    background: -o-linear-gradient(left, var(--bf-theme-primary) 0%, var(--bf-theme-primary) var(--played-tracker-percentage), #fff var(--played-tracker-percentage), white 100%);
+    background: linear-gradient(to right, var(--bf-theme-primary) 0%, var(--bf-theme-primary) var(--played-tracker-percentage), #fff var(--played-tracker-percentage), white 100%);
 }
 
 
@@ -499,9 +499,6 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	-webkit-appearance: none;
 	margin-top: -7px;
 	border-radius: 100%;
-	position: absolute;
-    left: calc(var(--played-tracker-percentage) - 4%);
-	transition: left calc(.3s * var(--isPlaying)) ease;
 }
 
 

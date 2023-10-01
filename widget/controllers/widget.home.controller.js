@@ -459,11 +459,6 @@
                             '--played-tracker-percentage',
                             `${percentage}%`
                         );
-                        document.documentElement.style.setProperty(
-                            '--isPlaying',
-                            value < 0.5 ? 0 : 1
-                        );
-                        console.log(document.documentElement.style.getPropertyValue('--value'));
                     }
                 };
             }]);
