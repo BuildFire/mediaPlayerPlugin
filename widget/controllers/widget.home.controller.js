@@ -68,9 +68,6 @@
                 audioPlayer.settings.get(function (err, data) {
                     console.log('Got player settings first time-----------------------', err, data);
                     if (data) {
-                        // todo : until Mahmoud done 
-                        data.playbackRate = 1;
-                        // todo End -----------------
                         WidgetHome.settings = data;
                         if (!$scope.$$phase) {
                             $scope.$digest();
@@ -133,6 +130,7 @@
                     } else {
                         audioPlayer.play(WidgetHome.currentTrack);
                     }
+                    setPlaybackSpeed(WidgetHome.settings.playbackRate);
                 };
                 WidgetHome.playlistPlay = function (track, index) {
                     WidgetHome.isRangeDisabled = false;
@@ -368,9 +366,10 @@
                     if (WidgetHome.settings && value) {
                         WidgetHome.settings.playbackRate = value;
                         audioPlayer.settings.set(WidgetHome.settings);
-                        // todo : uncomment this line after Mahmoud work done
-                        // audioPlayer.setPlaybackRate(value);
-                        $scope.$digest();
+                        audioPlayer.setPlaybackRate(value);
+                        if (!$scope.$$phase && !$scope.$root.$$phase) {
+                            $scope.$digest();
+                        }
                     }
                 };
                 
