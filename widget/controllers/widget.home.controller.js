@@ -135,7 +135,6 @@
                     } else {
                         audioPlayer.play(WidgetHome.currentTrack);
                     }
-                    setPlaybackSpeed(WidgetHome.settings.playbackRate);
                 };
                 WidgetHome.playlistPlay = function (track, index) {
                     WidgetHome.isRangeDisabled = false;
@@ -369,9 +368,8 @@
 
                 const setPlaybackSpeed = function (value) {
                     if (WidgetHome.settings && value) {
-                        WidgetHome.settings.playbackRate = value;
+                        WidgetHome.settings.playbackSpeed = value;
                         audioPlayer.settings.set(WidgetHome.settings);
-                        audioPlayer.setPlaybackRate(value);
                         if (!$scope.$$phase && !$scope.$root.$$phase) {
                             $scope.$digest();
                         }
@@ -407,7 +405,7 @@
                  * @param loop
                  * @param autoJumpToLastPosition
                  * @param shufflePlaylist
-                 * @param playbackRate
+                 * @param playbackSpeed
                  * @constructor
                  */
                 function AudioSettings(settings) {
@@ -416,7 +414,7 @@
                     this.autoJumpToLastPosition = settings.autoJumpToLastPosition; //If a track has [lastPosition] use it to start playing the audio from there
                     this.shufflePlaylist = settings.shufflePlaylist;// shuffle the playlist
                     this.isPlayingCurrentTrack = settings.isPlayingCurrentTrack;// Tells whether current is playing or not
-                    this.playbackRate = settings.playbackRate;// Track playback speed rate
+                    this.playbackSpeed = settings.playbackSpeed;// Track playback speed rate
                 }
 
 

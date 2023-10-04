@@ -158,7 +158,7 @@
             </div>
             <div class="media-player-action-btns">
                 <!--<span class="icon icon-volume-high icon-sm" ng-click="WidgetHome.showVolume=!WidgetHome.showVolume"></span>-->
-                <span class="playback-speed whiteTheme" ng-click="WidgetHome.openPlaybackDrawer()">{{WidgetHome.settings.playbackRate | number:'1'}}x</span>
+                <span class="playback-speed whiteTheme" ng-click="WidgetHome.openPlaybackDrawer()">{{WidgetHome.settings.playbackSpeed ? WidgetHome.settings.playbackSpeed : 1 | number:'1'}}x</span>
                 <span ng-if="!globalPlaylist" class="icon" ng-click="WidgetHome.getFromPlaylist()"">
                     <img class="playList-icon" src="assets/icons/ic_playlist.svg" alt="playlist">
                 </span>
