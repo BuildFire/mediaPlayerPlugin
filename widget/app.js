@@ -89,8 +89,11 @@
                 });
             };
         }])
-      .run(['$rootScope',function ($rootScope) {
-            forceHideNavbar();
+        .run(['$rootScope',function ($rootScope) {
+            buildfire.appearance.navbar.hide(null, (err) => {
+                if (err) return console.error(err);
+                console.log("Navbar is hidden");
+            });
 
             buildfire.navigation.onBackButtonClick = function () {
                 console.log('Back Button called-----------------------------');
@@ -101,19 +104,8 @@
                 else
                     buildfire.navigation._goBackOne();
             }
-        }])
-        .run(['$rootScope',function ($rootScope) {
-            buildfire.language.get({ stringKey: 'general.PlaybackSpeedTitle' }, (err, result) => {
-                if (err) return console.error('Error while retrieving string value', err);
-                $rootScope.PlaybackSpeedTitle = result;
-            });
-        }]);
 
-        const forceHideNavbar = function () {
-            buildfire.appearance.navbar.hide(null, (err) => {
-                if (err) return console.error(err);
-                console.log("Navbar is hidden");
-            });
-        };
+        }])
+
 })
 (window.angular, window.buildfire);

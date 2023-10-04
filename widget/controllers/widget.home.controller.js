@@ -4,14 +4,19 @@
     angular
         .module('MediaPlayerPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'Buildfire',
-            '$rootScope', 'Modals',
-            function ($scope, $timeout, Buildfire, $rootScope, Modals) {
+            '$rootScope', 'Modals', 'Strings',
+            function ($scope, $timeout, Buildfire, $rootScope, Modals, Strings) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
                 var WidgetHome = this;
                 WidgetHome.currentTime = 0.0;
                 WidgetHome.volume = 1;
                 WidgetHome.isRangeDisabled = true;
                 $rootScope.openPlaylist = false;
+                WidgetHome.strings = {};
+                const strings = new Strings();
+                strings.getString('general.playbackSpeedTitle', (err, res) => {
+                    WidgetHome.strings.playbackSpeedTitle = res;
+                });
                 const playbackSpeedOptions = [
                     {
                         text: '<div class="bodyTextTheme">0.5x</div>',
@@ -89,7 +94,7 @@
                             }
                             WidgetHome.currentTime = e.data.currentTime;
                             WidgetHome.duration = e.data.duration;
-                            WidgetHome.progressBarStyle(e.data.currentTime);
+                            WidgetHome.updateProgressBarStyle(e.data.currentTime);
                             break;
                         case 'audioEnded':
                             WidgetHome.playing = false;
@@ -349,7 +354,7 @@
                 WidgetHome.openPlaybackDrawer = function () {
                     buildfire.components.drawer.open(
                         {
-                            content: `<b class="ellipsis" style="display:block;">${$rootScope.PlaybackSpeedTitle}</b>`,
+                            content: `<b class="ellipsis" style="display:block;">${WidgetHome.strings.playbackSpeedTitle}</b>`,
                             enableFilter: false,
                             isHTML:true,
                             listItems: playbackSpeedOptions,
@@ -451,7 +456,7 @@
                  * progress bar style
                  * @param {Number} value 
                  */
-                WidgetHome.progressBarStyle = function (value) {
+                WidgetHome.updateProgressBarStyle = function (value) {
                     const percentage = (value / WidgetHome.duration) * 100;
                     if (percentage) {
                         document.documentElement.style.setProperty(

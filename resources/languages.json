@@ -3,7 +3,7 @@
         "general": {
             "title": "General",
             "labels": {
-                "PlaybackSpeedTitle": {
+                "playbackSpeedTitle": {
                     "title": "Playback Speed",
                     "defaultValue": "Playback Speed",
                     "placeholder": "Playback Speed"
