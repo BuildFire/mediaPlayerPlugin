@@ -14,6 +14,7 @@
                 $rootScope.openPlaylist = false;
                 WidgetHome.strings = {};
                 const strings = new Strings();
+                document.documentElement.style.setProperty('--played-tracker-percentage','0%');
                 strings.getString('general.playbackSpeedTitle', (err, res) => {
                     WidgetHome.strings.playbackSpeedTitle = res;
                 });
@@ -95,6 +96,7 @@
                             WidgetHome.currentTime = e.data.currentTime;
                             WidgetHome.duration = e.data.duration;
                             WidgetHome.updateProgressBarStyle(e.data.currentTime);
+                            WidgetHome.isRangeDisabled = false;
                             break;
                         case 'audioEnded':
                             WidgetHome.playing = false;

@@ -295,7 +295,6 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 .holder.now-playing {
 	margin-top: 0;
 	height: 100%;
-	padding: 50px 0 0 !important;
 	color: #fff;
 }
 
@@ -318,13 +317,16 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 }
 
 .holder.now-playing .media-center-plugin {
-	position: absolute;
-	width: 300px;
-	height: 530px;
-	top: 45%;
-	margin-top: -264px;
-	left: 50%;
-	margin-left: -150px;
+    position: relative;
+    height: 100%;
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around ;
+	padding: 16px 16px 32px;
+	gap: 8px;
 }
 
 .holder.now-playing .media-holder,
@@ -381,7 +383,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	justify-content: center;
 	align-items: center;
 	padding-top: 40px;
-	gap: 16px;
+	gap: 45px;
 }
 
 .holder.now-playing .media-player-action-btns .icon {
@@ -461,16 +463,12 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 }
 
 @media(max-height: 540px) {
-	.holder.now-playing .media-center-plugin {
-		height: 464px;
-		margin-top: -232px;
-	}
 
 	.holder.now-playing .media-holder,
 	.holder.now-playing .media-holder .media-inner,
 	.holder.now-playing .media-holder .media-inner img {
-		max-height: 200px;
-		max-width: 200px;
+		max-height: 120px;
+		max-width: 120px;
 	}
 
 	.holder.now-playing .media-player-btns .icon {
@@ -487,10 +485,6 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 }
 
 @media(max-height: 470px) {
-	.holder.now-playing .media-center-plugin {
-		height: 248px;
-		margin-top: -124px;
-	}
 
 	.holder.now-playing .media-holder {
 		display: none;
@@ -545,6 +539,7 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	-webkit-appearance: none;
 	margin: 20px 0;
 	width: 100%;
+	position: relative;
 }
 
 .audio-plyer input[type=range]:focus {
@@ -571,6 +566,8 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	-webkit-appearance: none;
 	margin-top: -7px;
 	border-radius: 100%;
+	position: absolute;
+    left: calc(var(--played-tracker-percentage) - 8px);
 }
 
 

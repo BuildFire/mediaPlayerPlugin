@@ -52,12 +52,12 @@
     'width': '110%',
     'z-index': '0'}"></div>
         <div class="media-center-plugin" ng-if="!(WidgetHome.openMoreInfo || WidgetHome.openSettings)">
-            <div class="media-holder margin-top-fifteen">
+            <div class="media-holder">
                 <div class="media-inner text-center">
                     <img ng-if="!WidgetHome.currentTrack.image"
-                         class="border-radius-two"
+                         class="border-radius-four"
                          src='http://app.buildfire.com/app/media/now-playing.png' height="260px" width="260px">
-                    <img ng-if="WidgetHome.currentTrack.image" class="border-radius-two"
+                    <img ng-if="WidgetHome.currentTrack.image" class="border-radius-four"
                          load-image="1x1" data-final-src="{{WidgetHome.currentTrack.image}}" crop-width="260" crop-height="260" crop-type="crop">
                 </div>
             </div>
@@ -104,9 +104,6 @@
                                  ng-change="WidgetHome.changeVolume(WidgetHome.volume)"
                                  style="width: 149px; border-radius:4px; background:#fff; margin-top: -93px;margin-left: -14px;z-index: 1000000"/>
                 </div>
-            </div>
-            <div class="text-center margin-top-fifteen">
-                <span class="icon icon-dots whiteTheme"></span>
             </div>
             <div class="media-player-btns media-container">
                 <div class = "media-button-container" ng-click="WidgetHome.shufflePlaylist()">
@@ -217,9 +214,9 @@
                 <div class="media-player-more-info">
                     <div class="media-holder margin-top-thirty">
                         <div class="media-inner text-center">
-                            <img ng-if="WidgetHome.currentTrack.artwork_url" class="border-radius-two"
+                            <img ng-if="WidgetHome.currentTrack.artwork_url" class="border-radius-four"
                                  ng-src="{{WidgetHome.currentTrack.artwork_url}}">
-                            <img ng-if="WidgetHome.currentTrack.image" class="border-radius-two"
+                            <img ng-if="WidgetHome.currentTrack.image" class="border-radius-four"
                                  ng-src="{{WidgetHome.currentTrack.image}}">
                         </div>
                     </div>
