@@ -395,6 +395,10 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	width: 25%;
 	cursor: pointer;
 }
+.holder.now-playing .media-player-action-btns span.playback-speed {
+	font-size: 16px;
+    font-weight: 500;
+}
 
 .holder.now-playing .media-player-btns .icon.icon-sm {
 	font-size: 22px;
@@ -462,13 +466,16 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 	left: -1px;
 }
 
-@media(max-height: 540px) {
-
+@media(max-height: 600px) {
+	.holder.now-playing .media-holder,
+	.more-info .media-holder {
+		padding-top: 12px;
+	}
 	.holder.now-playing .media-holder,
 	.holder.now-playing .media-holder .media-inner,
 	.holder.now-playing .media-holder .media-inner img {
-		max-height: 120px;
-		max-width: 120px;
+		max-height: 230px;
+		max-width: 230px;
 	}
 
 	.holder.now-playing .media-player-btns .icon {
@@ -481,6 +488,10 @@ html[browser="Firefox"] .layout3 .list-layout .list-item-media .list-media-holde
 
 	.holder.now-playing .media-player-btns .icon.icon-sm {
 		top: 0;
+	}
+	.holder.now-playing .media-player-action-btns {
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 }
 
