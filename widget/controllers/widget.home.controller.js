@@ -4,14 +4,47 @@
     angular
         .module('MediaPlayerPluginWidget')
         .controller('WidgetHomeCtrl', ['$scope', '$timeout', 'Buildfire',
-            '$rootScope', 'Modals',
-            function ($scope, $timeout, Buildfire, $rootScope, Modals) {
+            '$rootScope', 'Modals', 'Strings',
+            function ($scope, $timeout, Buildfire, $rootScope, Modals, Strings) {
                 console.log('WidgetHomeCtrl Controller Loaded-------------------------------------');
                 var WidgetHome = this;
                 WidgetHome.currentTime = 0.0;
                 WidgetHome.volume = 1;
                 WidgetHome.isRangeDisabled = true;
                 $rootScope.openPlaylist = false;
+                WidgetHome.strings = {};
+                const strings = new Strings();
+                document.documentElement.style.setProperty('--played-tracker-percentage','0%');
+                strings.getString('general.playbackSpeedTitle', (err, res) => {
+                    WidgetHome.strings.playbackSpeedTitle = res;
+                });
+                const playbackSpeedOptions = [
+                    {
+                        text: '<div class="bodyTextTheme">0.5x</div>',
+                        displayText: '0.5x',
+                        value: 0.5,
+                        default: false
+                    },
+                    {
+                        text: '<div class="bodyTextTheme">1.0x</div>',
+                        displayText: '1.0x',
+                        value: 1,
+                        default: true
+                    },
+                    {
+                        text: '<div class="bodyTextTheme">1.5x</div>',
+                        displayText: '1.5x',
+                        value: 1.5,
+                        default: false
+                    },
+                    {
+                        text: '<div class="bodyTextTheme">2.0x</div>',
+                        displayText: '2.0x',
+                        value: 2,
+                        default: false
+                    },
+                ];
+
                 var audioPlayer = Buildfire.services.media.audioPlayer;
                 WidgetHome.playList = [];
                 audioPlayer.getPlaylist((err,data) =>{
@@ -62,6 +95,8 @@
                             }
                             WidgetHome.currentTime = e.data.currentTime;
                             WidgetHome.duration = e.data.duration;
+                            WidgetHome.updateProgressBarStyle(e.data.currentTime);
+                            WidgetHome.isRangeDisabled = false;
                             break;
                         case 'audioEnded':
                             WidgetHome.playing = false;
@@ -316,6 +351,36 @@
                     WidgetHome.openMoreInfo = false;
                 };
 
+                //! --------------------------- Playback options --------------------------------------
+                WidgetHome.openPlaybackDrawer = function () {
+                    buildfire.components.drawer.open(
+                        {
+                            content: `<b class="ellipsis" style="display:block;">${WidgetHome.strings.playbackSpeedTitle}</b>`,
+                            enableFilter: false,
+                            isHTML:true,
+                            listItems: playbackSpeedOptions,
+                        },
+                        (err, result) => {
+                            if (err) return console.error(err);
+                            setPlaybackSpeed(result.value);
+                            buildfire.components.drawer.closeDrawer();
+                        }
+                    );
+                };
+
+                const setPlaybackSpeed = function (value) {
+                    if (WidgetHome.settings && value) {
+                        WidgetHome.settings.playbackSpeed = value;
+                        audioPlayer.settings.set(WidgetHome.settings);
+                        if (!$scope.$$phase && !$scope.$root.$$phase) {
+                            $scope.$digest();
+                        }
+                    }
+                };
+                
+                
+                //! --------------------------- End : Playback options --------------------------------------
+
                 /**
                  * Track Smaple
                  * @param title
@@ -342,6 +407,7 @@
                  * @param loop
                  * @param autoJumpToLastPosition
                  * @param shufflePlaylist
+                 * @param playbackSpeed
                  * @constructor
                  */
                 function AudioSettings(settings) {
@@ -350,6 +416,7 @@
                     this.autoJumpToLastPosition = settings.autoJumpToLastPosition; //If a track has [lastPosition] use it to start playing the audio from there
                     this.shufflePlaylist = settings.shufflePlaylist;// shuffle the playlist
                     this.isPlayingCurrentTrack = settings.isPlayingCurrentTrack;// Tells whether current is playing or not
+                    this.playbackSpeed = settings.playbackSpeed;// Track playback speed rate
                 }
 
 
@@ -385,5 +452,18 @@
                      }*/
                 };
 
+                /**
+                 * progress bar style
+                 * @param {Number} value 
+                 */
+                WidgetHome.updateProgressBarStyle = function (value) {
+                    const percentage = (value / WidgetHome.duration) * 100;
+                    if (percentage) {
+                        document.documentElement.style.setProperty(
+                            '--played-tracker-percentage',
+                            `${percentage}%`
+                        );
+                    }
+                };
             }]);
 })(window.angular, window);

@@ -1,0 +1,14 @@
+{
+    "sections": {
+        "general": {
+            "title": "General",
+            "labels": {
+                "playbackSpeedTitle": {
+                    "title": "Playback Speed",
+                    "defaultValue": "Playback Speed",
+                    "placeholder": "Playback Speed"
+                }
+            }
+        }
+    }
+}

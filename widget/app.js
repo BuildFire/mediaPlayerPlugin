@@ -89,7 +89,12 @@
                 });
             };
         }])
-      .run(['$rootScope',function ($rootScope) {
+        .run(['$rootScope',function ($rootScope) {
+            buildfire.appearance.navbar.hide(null, (err) => {
+                if (err) return console.error(err);
+                console.log("Navbar is hidden");
+            });
+
             buildfire.navigation.onBackButtonClick = function () {
                 console.log('Back Button called-----------------------------');
                 if ($rootScope.openPlaylist) {
@@ -99,6 +104,8 @@
                 else
                     buildfire.navigation._goBackOne();
             }
-        }]);
+
+        }])
+
 })
 (window.angular, window.buildfire);
