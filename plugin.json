@@ -1,7 +1,7 @@
 {
   "author": "Buildfire",
-  "pluginName": "Audio Media Player",
-  "pluginDescription": "Boost user engagement, offers control and playlist creation for a personalized audio experience",
+  "pluginName": "Audio Player",
+  "pluginDescription": "Boost user engagement with an audio media player that offers full control, playlist creation, and a personalized listening experience for your app's users.",
   "supportEmail": "support@buildfire.com",
   "supportSite":"http://learn.appdocumentation.com/plugin-tutorials/audio-media-player-plugin-tutorial",
   "pluginIcon": "icon.png",
