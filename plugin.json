@@ -26,6 +26,7 @@
   "languages": [
     "en"
   ],
+  "keywords": "Audio Media Player",
   "media": [
     {
       "type": "image-resource",
